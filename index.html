@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flovo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8fafc; /* Light gray background */
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-center items-center min-h-screen">
+
+    <div class="text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Flovo</h1>
+        <p class="text-lg text-gray-600 mb-8">Your roadmap to success</p>
+        <form id="searchForm" class="flex justify-center">
+            <input type="text" id="searchInput" placeholder="Enter your query..." class="border border-gray-300 rounded-l-lg py-2 px-4 w-96 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="bg-blue-500 text-white rounded-r-lg px-4 py-2">Search</button>
+        </form>
+    </div>
+
+    <div id="result" class="mt-8 text-center hidden">
+        <h2 class="text-2xl font-semibold">Results:</h2>
+        <div id="output" class="mt-4 text-left bg-white rounded-lg shadow-md p-4 max-w-md mx-auto"></div>
+    </div>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const query = document.getElementById('searchInput').value;
+
+            // Fetch results from your AI model or API here
+            // For demonstration, we'll just display the query.
+            const output = document.getElementById('output');
+            output.innerHTML = `<p>You searched for: <strong>${query}</strong></p>`;
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>

@@ -3,32 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="tree-icon.png" type="image/png"> <!-- Favicon -->
     <title>Flovo - Tree Structure Visualization</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
-            background-color: #f8fafc;
+            background-color: #000; /* Set background to black */
             font-family: Arial, sans-serif;
+            overflow: hidden; /* Hide overflow for a cleaner look */
         }
+
+        .meteor {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0));
+            animation: fall 1s linear infinite;
+            bottom: 100%;
+            opacity: 0.5;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh); /* Fall to the bottom */
+                opacity: 0;
+            }
+        }
+
         .node circle {
-            fill: #fff;
-            stroke: #3b82f6;
-            stroke-width: 3px;
+            fill: #3b82f6; /* Node circle color */
+            stroke: #fff; /* Stroke color */
+            stroke-width: 2px; /* Reduced stroke width */
         }
+
         .node text {
-            font: 12px sans-serif;
+            font: 14px sans-serif; /* Increased font size */
+            fill: #fff; /* White text for better visibility */
+            text-overflow: ellipsis; /* Ellipsis if text overflows */
+            white-space: nowrap; /* Prevent line breaks */
+            overflow: hidden; /* Hide overflow text */
+            dy: 0.35em; /* Adjust vertical positioning of text */
         }
+
         .link {
             fill: none;
-            stroke: #ccc;
-            stroke-width: 2px;
+            stroke: #ccc; /* Link color */
+            stroke-width: 1.5px; /* Reduced stroke width */
+        }
+
+        /* Transparent overlay */
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            z-index: 0;
+        }
+
+        #tree {
+            position: relative; /* Position for tree */
+            z-index: 10; /* Ensure tree is above overlay */
+        }
+
+        /* Tooltip style */
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: 200px; /* Increased tooltip width */
+            padding: 8px;
+            font: 12px sans-serif;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.3s;
+            z-index: 1000; /* Ensure tooltip is above other elements */
+        }
+
+        @media (max-width: 600px) {
+            .node text {
+                font: 10px sans-serif; /* Smaller font for mobile */
+            }
         }
     </style>
 </head>
-<body class="flex flex-col justify-center items-center min-h-screen">
+<body class="flex flex-col justify-center items-center min-h-screen relative">
 
-    <div class="text-center">
+    <div id="overlay"></div> <!-- Transparent overlay -->
+    
+    <div class="text-center z-10">
         <h1 class="text-4xl font-bold text-gray-800 mb-4">Flovo.XYZ</h1>
         <p class="text-lg text-gray-600 mb-8">Your Roadmap Flow to Outcomes</p>
         <form id="searchForm" class="flex justify-center">
@@ -38,9 +109,12 @@
     </div>
 
     <div id="result" class="mt-8 text-center hidden">
-        <h2 class="text-2xl font-semibold">Results:</h2>
+        <h2 class="text-2xl font-semibold text-white">Results:</h2>
         <div id="tree" class="mt-4"></div>
     </div>
+
+    <!-- Tooltip element -->
+    <div class="tooltip" id="tooltip"></div>
 
     <script>
         let jsonData = {};
@@ -60,27 +134,27 @@
 
             if (result) {
                 document.getElementById('result').classList.remove('hidden');
-                createTree(result);
+                createTree(result, query); // Pass query for first node
             } else {
-                document.getElementById('result').innerHTML = `<p>No results found for: <strong>${query}</strong></p>`;
+                document.getElementById('result').innerHTML = `<p class="text-red-500">No results found for: <strong>${query}</strong></p>`;
             }
         });
 
-        function createTree(data) {
+        function createTree(data, query) {
             d3.select("#tree").selectAll("*").remove(); // Clear previous tree
 
-            const treeData = convertToTree(data);
-            const width = 600;
-            const height = 400;
+            const treeData = convertToTree(data, query); // Convert to tree format
+            const width = 800; // Adjusted width for better spacing
+            const height = 600; // Adjusted height for better spacing
 
             const svg = d3.select("#tree")
                 .append("svg")
                 .attr("width", width)
                 .attr("height", height)
                 .append("g")
-                .attr("transform", "translate(50,50)");
+                .attr("transform", "translate(100,100)"); // Centered tree
 
-            const treeLayout = d3.tree().size([height - 100, width - 100]);
+            const treeLayout = d3.tree().size([height - 200, width - 200]); // Adjusted layout size
             const root = d3.hierarchy(treeData);
             treeLayout(root);
 
@@ -104,34 +178,65 @@
                 .attr("transform", d => `translate(${d.y},${d.x})`);
 
             nodes.append("circle")
-                .attr("r", 5);
+                .attr("r", 8); // Larger circle radius for better visibility
 
             nodes.append("text")
-                .attr("dy", 3)
-                .attr("x", d => d.children ? -8 : 8)
+                .attr("dy", 1.5) // Adjusted vertical positioning for spacing
+                .attr("x", d => d.children ? -10 : 10) // Adjusted position
                 .style("text-anchor", d => d.children ? "end" : "start")
-                .text(d => d.data.name);
+                .text(d => d.data.name) // Display the node name
+                .on("mouseover", function(event, d) {
+                    d3.select("#tooltip")
+                        .html(d.data.description) // Show description
+                        .style("left", (event.pageX + 5) + "px")
+                        .style("top", (event.pageY - 28) + "px")
+                        .style("opacity", 1); // Show tooltip
+                })
+                .on("mouseout", function() {
+                    d3.select("#tooltip").style("opacity", 0); // Hide tooltip
+                });
         }
 
-        function convertToTree(data) {
+        function convertToTree(data, query) {
             const result = {
-                name: data.description,
+                name: query, // Set the first node to the searched name
+                description: data.description,
                 children: []
             };
 
             if (data.subtopics) {
                 for (const [key, value] of Object.entries(data.subtopics)) {
+                    // Change singular to plural for consistency
+                    const name = key.endsWith("s") ? key : `${key}s`;
                     result.children.push({
-                        name: key,
+                        name: name,
                         description: value.description,
-                        children: convertToTree(value).children // Recursively convert subtopics
+                        children: convertToTree(value, name).children // Recursively convert subtopics
                     });
                 }
             }
 
             return result;
         }
-    </script>
 
+        // Function to create meteor shower effect
+        function createMeteors(numMeteors) {
+            for (let i = 0; i < numMeteors; i++) {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                meteor.style.left = `${Math.random() * 100}vw`; // Random position
+                meteor.style.animationDuration = `${Math.random() * 2 + 1}s`; // Random duration
+                document.body.appendChild(meteor);
+
+                // Remove the meteor after animation ends
+                meteor.addEventListener('animationend', () => {
+                    meteor.remove();
+                });
+            }
+        }
+
+        // Create meteors every second
+        setInterval(() => createMeteors(3), 1000);
+    </script>
 </body>
 </html>

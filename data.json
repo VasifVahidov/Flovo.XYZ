@@ -10,6 +10,9 @@
                     },
                     "Control Structures": {
                         "description": "Learn about if statements, loops, and switch cases."
+                    },
+                    "Object-Oriented Programming": {
+                        "description": "Understand the principles of OOP including classes and objects."
                     }
                 }
             },
@@ -21,6 +24,9 @@
                     },
                     "Streams": {
                         "description": "Learn about Java Streams and functional programming."
+                    },
+                    "Design Patterns": {
+                        "description": "Study common design patterns and their applications in Java."
                     }
                 }
             }
@@ -37,6 +43,9 @@
                     },
                     "PaaS": {
                         "description": "Platform as a Service - providing a platform allowing customers to develop, run, and manage applications."
+                    },
+                    "SaaS": {
+                        "description": "Software as a Service - delivering software over the internet, eliminating the need for installation."
                     }
                 }
             },
@@ -48,6 +57,9 @@
                     },
                     "Azure": {
                         "description": "Microsoft Azure - a cloud computing service created by Microsoft."
+                    },
+                    "Google Cloud": {
+                        "description": "Google Cloud Platform - a suite of cloud computing services offered by Google."
                     }
                 }
             }

@@ -1,0 +1,56 @@
+{
+    "Java": {
+        "description": "Java is a high-level, class-based, object-oriented programming language.",
+        "subtopics": {
+            "Basics": {
+                "description": "Learn the fundamental concepts of Java.",
+                "subtopics": {
+                    "Variables": {
+                        "description": "Understanding data types and variable declaration."
+                    },
+                    "Control Structures": {
+                        "description": "Learn about if statements, loops, and switch cases."
+                    }
+                }
+            },
+            "Advanced": {
+                "description": "Explore advanced topics in Java programming.",
+                "subtopics": {
+                    "Multithreading": {
+                        "description": "Understand how to execute multiple threads in Java."
+                    },
+                    "Streams": {
+                        "description": "Learn about Java Streams and functional programming."
+                    }
+                }
+            }
+        }
+    },
+    "Cloud Engineering": {
+        "description": "Cloud engineering involves designing, developing, and managing cloud-based solutions.",
+        "subtopics": {
+            "Core Concepts": {
+                "description": "Understand the fundamentals of cloud computing.",
+                "subtopics": {
+                    "IaaS": {
+                        "description": "Infrastructure as a Service - provision of virtualized computing resources over the internet."
+                    },
+                    "PaaS": {
+                        "description": "Platform as a Service - providing a platform allowing customers to develop, run, and manage applications."
+                    }
+                }
+            },
+            "Tools & Technologies": {
+                "description": "Learn about the tools commonly used in cloud engineering.",
+                "subtopics": {
+                    "AWS": {
+                        "description": "Amazon Web Services - a comprehensive cloud computing platform."
+                    },
+                    "Azure": {
+                        "description": "Microsoft Azure - a cloud computing service created by Microsoft."
+                    }
+                }
+            }
+        }
+    }
+}

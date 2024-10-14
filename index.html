@@ -3,19 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flovo</title>
+    <title>Flovo - Tree Structure Visualization</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
-            background-color: #f8fafc; /* Light gray background */
+            background-color: #f8fafc;
+            font-family: Arial, sans-serif;
+        }
+        .node circle {
+            fill: #fff;
+            stroke: #3b82f6;
+            stroke-width: 3px;
+        }
+        .node text {
+            font: 12px sans-serif;
+        }
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 2px;
         }
     </style>
 </head>
 <body class="flex flex-col justify-center items-center min-h-screen">
 
     <div class="text-center">
-        <h1 class="text-4xl font-bold text-gray-800 mb-4">Flovo</h1>
-        <p class="text-lg text-gray-600 mb-8">Your roadmap to success</p>
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Flovo.XYZ</h1>
+        <p class="text-lg text-gray-600 mb-8">Your Roadmap Flow to Outcomes</p>
         <form id="searchForm" class="flex justify-center">
             <input type="text" id="searchInput" placeholder="Enter your query..." class="border border-gray-300 rounded-l-lg py-2 px-4 w-96 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <button type="submit" class="bg-blue-500 text-white rounded-r-lg px-4 py-2">Search</button>
@@ -24,20 +39,98 @@
 
     <div id="result" class="mt-8 text-center hidden">
         <h2 class="text-2xl font-semibold">Results:</h2>
-        <div id="output" class="mt-4 text-left bg-white rounded-lg shadow-md p-4 max-w-md mx-auto"></div>
+        <div id="tree" class="mt-4"></div>
     </div>
 
     <script>
+        let jsonData = {};
+
+        // Fetch the JSON data
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                jsonData = data; // Store the fetched data in jsonData
+            })
+            .catch(error => console.error('Error fetching JSON:', error));
+
         document.getElementById('searchForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const query = document.getElementById('searchInput').value;
+            const result = jsonData[query];
 
-            // Fetch results from your AI model or API here
-            // For demonstration, we'll just display the query.
-            const output = document.getElementById('output');
-            output.innerHTML = `<p>You searched for: <strong>${query}</strong></p>`;
-            document.getElementById('result').classList.remove('hidden');
+            if (result) {
+                document.getElementById('result').classList.remove('hidden');
+                createTree(result);
+            } else {
+                document.getElementById('result').innerHTML = `<p>No results found for: <strong>${query}</strong></p>`;
+            }
         });
+
+        function createTree(data) {
+            d3.select("#tree").selectAll("*").remove(); // Clear previous tree
+
+            const treeData = convertToTree(data);
+            const width = 600;
+            const height = 400;
+
+            const svg = d3.select("#tree")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(50,50)");
+
+            const treeLayout = d3.tree().size([height - 100, width - 100]);
+            const root = d3.hierarchy(treeData);
+            treeLayout(root);
+
+            // Links
+            svg.selectAll(".link")
+                .data(root.links())
+                .enter()
+                .append("path")
+                .attr("class", "link")
+                .attr("d", d3.linkHorizontal()
+                    .x(d => d.y)
+                    .y(d => d.x)
+                );
+
+            // Nodes
+            const nodes = svg.selectAll(".node")
+                .data(root.descendants())
+                .enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", d => `translate(${d.y},${d.x})`);
+
+            nodes.append("circle")
+                .attr("r", 5);
+
+            nodes.append("text")
+                .attr("dy", 3)
+                .attr("x", d => d.children ? -8 : 8)
+                .style("text-anchor", d => d.children ? "end" : "start")
+                .text(d => d.data.name);
+        }
+
+        function convertToTree(data) {
+            const result = {
+                name: data.description,
+                children: []
+            };
+
+            if (data.subtopics) {
+                for (const [key, value] of Object.entries(data.subtopics)) {
+                    result.children.push({
+                        name: key,
+                        description: value.description,
+                        children: convertToTree(value).children // Recursively convert subtopics
+                    });
+                }
+            }
+
+            return result;
+        }
     </script>
 
 </body>

@@ -64,5 +64,689 @@
                 }
             }
         }
+    },
+    "Python": {
+        "description": "Python is an interpreted, high-level programming language known for its simplicity.",
+        "subtopics": {
+            "Basics": {
+                "description": "Learn the essential features of Python.",
+                "subtopics": {
+                    "Syntax": {
+                        "description": "Understanding the basic syntax of Python."
+                    },
+                    "Data Structures": {
+                        "description": "Learn about lists, dictionaries, sets, and tuples."
+                    },
+                    "Functions": {
+                        "description": "Creating and using functions in Python."
+                    }
+                }
+            },
+            "Web Development": {
+                "description": "Explore web development using Python.",
+                "subtopics": {
+                    "Flask": {
+                        "description": "Learn to create web applications using Flask framework."
+                    },
+                    "Django": {
+                        "description": "Build powerful web applications with Django framework."
+                    }
+                }
+            }
+        }
+    },
+    "Data Science": {
+        "description": "Data Science involves extracting insights and knowledge from data.",
+        "subtopics": {
+            "Statistics": {
+                "description": "Understanding statistical methods and their applications.",
+                "subtopics": {
+                    "Descriptive Statistics": {
+                        "description": "Summarizing and interpreting data sets."
+                    },
+                    "Inferential Statistics": {
+                        "description": "Drawing conclusions from data samples."
+                    }
+                }
+            },
+            "Machine Learning": {
+                "description": "Learn about algorithms that enable computers to learn from data.",
+                "subtopics": {
+                    "Supervised Learning": {
+                        "description": "Algorithms that learn from labeled data."
+                    },
+                    "Unsupervised Learning": {
+                        "description": "Learning from unlabeled data."
+                    }
+                }
+            }
+        }
+    },
+    "Cybersecurity": {
+        "description": "Cybersecurity focuses on protecting systems, networks, and data from digital attacks.",
+        "subtopics": {
+            "Basics": {
+                "description": "Learn the fundamental principles of cybersecurity.",
+                "subtopics": {
+                    "Threats": {
+                        "description": "Understanding common cybersecurity threats."
+                    },
+                    "Defense Mechanisms": {
+                        "description": "Learn about firewalls, antivirus, and other security measures."
+                    }
+                }
+            },
+            "Advanced Security": {
+                "description": "Explore advanced concepts in cybersecurity.",
+                "subtopics": {
+                    "Cryptography": {
+                        "description": "Study methods for secure communication."
+                    },
+                    "Ethical Hacking": {
+                        "description": "Learn about penetration testing and vulnerability assessments."
+                    }
+                }
+            }
+        }
+    },
+    "Machine Learning": {
+        "description": "Machine learning is a branch of artificial intelligence focusing on data and algorithms.",
+        "subtopics": {
+            "Foundations": {
+                "description": "Learn the basic concepts of machine learning.",
+                "subtopics": {
+                    "Types of Learning": {
+                        "description": "Understanding supervised, unsupervised, and reinforcement learning."
+                    },
+                    "Data Preprocessing": {
+                        "description": "Learn about cleaning and preparing data for analysis."
+                    }
+                }
+            },
+            "Algorithms": {
+                "description": "Explore common algorithms used in machine learning.",
+                "subtopics": {
+                    "Linear Regression": {
+                        "description": "Understanding linear models for predictive analysis."
+                    },
+                    "Decision Trees": {
+                        "description": "Learn about decision tree algorithms for classification."
+                    }
+                }
+            }
+        }
+    },
+    "Web Development": {
+        "description": "Web development involves creating and maintaining websites.",
+        "subtopics": {
+            "Frontend Development": {
+                "description": "Learn about technologies used for frontend development.",
+                "subtopics": {
+                    "HTML": {
+                        "description": "Understanding the structure of web pages using HTML."
+                    },
+                    "CSS": {
+                        "description": "Styling web pages with CSS."
+                    },
+                    "JavaScript": {
+                        "description": "Making web pages interactive using JavaScript."
+                    }
+                }
+            },
+            "Backend Development": {
+                "description": "Explore technologies for backend development.",
+                "subtopics": {
+                    "Node.js": {
+                        "description": "Learn about server-side programming with Node.js."
+                    },
+                    "Databases": {
+                        "description": "Understanding database management systems like SQL and NoSQL."
+                    }
+                }
+            }
+        }
+    },
+    "DevOps": {
+        "description": "DevOps is a set of practices combining software development and IT operations.",
+        "subtopics": {
+            "Core Concepts": {
+                "description": "Understand the principles of DevOps.",
+                "subtopics": {
+                    "Continuous Integration": {
+                        "description": "Learn about automating the integration of code changes."
+                    },
+                    "Continuous Deployment": {
+                        "description": "Understanding automated deployment processes."
+                    }
+                }
+            },
+            "Tools & Technologies": {
+                "description": "Explore popular DevOps tools.",
+                "subtopics": {
+                    "Docker": {
+                        "description": "Learn about containerization using Docker."
+                    },
+                    "Kubernetes": {
+                        "description": "Understanding orchestration of containers with Kubernetes."
+                    }
+                }
+            }
+        }
+    },
+    "Artificial Intelligence": {
+        "description": "AI focuses on creating systems capable of performing tasks that typically require human intelligence.",
+        "subtopics": {
+            "Foundations": {
+                "description": "Learn about the foundational concepts of AI.",
+                "subtopics": {
+                    "Machine Learning": {
+                        "description": "Understanding how machines can learn from data."
+                    },
+                    "Neural Networks": {
+                        "description": "Study the architecture inspired by biological neural networks."
+                    }
+                }
+            },
+            "Applications": {
+                "description": "Explore various applications of AI.",
+                "subtopics": {
+                    "Natural Language Processing": {
+                        "description": "Understanding how machines process human language."
+                    },
+                    "Computer Vision": {
+                        "description": "Study how machines interpret and understand visual information."
+                    }
+                }
+            }
+        }
+    },
+    "Blockchain": {
+        "description": "Blockchain is a decentralized digital ledger technology used for recording transactions.",
+        "subtopics": {
+            "Basics": {
+                "description": "Learn the fundamental concepts of blockchain technology.",
+                "subtopics": {
+                    "Cryptography": {
+                        "description": "Understanding the cryptographic principles underlying blockchain."
+                    },
+                    "Decentralization": {
+                        "description": "Learn about the benefits of decentralized systems."
+                    }
+                }
+            },
+            "Smart Contracts": {
+                "description": "Explore automated contracts that execute when certain conditions are met.",
+                "subtopics": {
+                    "Ethereum": {
+                        "description": "Understanding Ethereum as a platform for smart contracts."
+                    },
+                    "Development": {
+                        "description": "Learn about tools and languages used to create smart contracts."
+                    }
+                }
+            }
+        }
+    },
+    "Software Testing": {
+        "description": "Software testing ensures the quality and reliability of software applications.",
+        "subtopics": {
+            "Types of Testing": {
+                "description": "Understand different testing methods.",
+                "subtopics": {
+                    "Unit Testing": {
+                        "description": "Testing individual components of software."
+                    },
+                    "Integration Testing": {
+                        "description": "Testing the interaction between integrated components."
+                    },
+                    "System Testing": {
+                        "description": "Testing the complete and integrated software."
+                    }
+                }
+            },
+            "Tools": {
+                "description": "Explore common testing tools.",
+                "subtopics": {
+                    "Selenium": {
+                        "description": "Automated testing for web applications."
+                    },
+                    "JUnit": {
+                        "description": "A testing framework for Java applications."
+                    }
+                }
+            }
+        }
+    },
+    "Networking": {
+        "description": "Networking involves connecting computers to share resources.",
+        "subtopics": {
+            "Fundamentals": {
+                "description": "Learn the basics of computer networking.",
+                "subtopics": {
+                    "OSI Model": {
+                        "description": "Understanding the seven layers of the OSI model."
+                    },
+                    "TCP/IP": {
+                        "description": "Learn about the suite of communication protocols used to interconnect network devices."
+                    }
+                }
+            },
+            "Protocols": {
+                "description": "Explore various networking protocols.",
+                "subtopics": {
+                    "HTTP": {
+                        "description": "Learn about the protocol used for transmitting hypertext via the internet."
+                    },
+                    "FTP": {
+                        "description": "Understanding the File Transfer Protocol for transferring files."
+                    }
+                }
+            }
+        }
+    },
+    "Mobile Development": {
+        "description": "Mobile development focuses on creating applications for mobile devices.",
+        "subtopics": {
+            "iOS Development": {
+                "description": "Learn about developing applications for Apple's iOS platform.",
+                "subtopics": {
+                    "Swift": {
+                        "description": "Understanding Swift programming language for iOS."
+                    },
+                    "Xcode": {
+                        "description": "Learn to use Xcode for iOS app development."
+                    }
+                }
+            },
+            "Android Development": {
+                "description": "Explore developing applications for Android devices.",
+                "subtopics": {
+                    "Java/Kotlin": {
+                        "description": "Learn to use Java or Kotlin for Android app development."
+                    },
+                    "Android Studio": {
+                        "description": "Understanding the IDE for Android development."
+                    }
+                }
+            }
+        }
+    },
+    "Game Development": {
+        "description": "Game development involves creating video games across various platforms.",
+        "subtopics": {
+            "Game Engines": {
+                "description": "Learn about popular game engines.",
+                "subtopics": {
+                    "Unity": {
+                        "description": "Understanding the Unity game engine for 2D and 3D games."
+                    },
+                    "Unreal Engine": {
+                        "description": "Explore the Unreal Engine for high-quality games."
+                    }
+                }
+            },
+            "Game Design": {
+                "description": "Study the principles of game design.",
+                "subtopics": {
+                    "Mechanics": {
+                        "description": "Understanding the rules and systems in games."
+                    },
+                    "Storytelling": {
+                        "description": "Learn about narrative design in games."
+                    }
+                }
+            }
+        }
+    },
+    "Project Management": {
+        "description": "Project management involves planning, executing, and closing projects effectively.",
+        "subtopics": {
+            "Fundamentals": {
+                "description": "Learn the basics of project management.",
+                "subtopics": {
+                    "Project Lifecycle": {
+                        "description": "Understanding the phases of project management."
+                    },
+                    "Agile Methodology": {
+                        "description": "Learn about Agile principles and practices."
+                    }
+                }
+            },
+            "Tools & Techniques": {
+                "description": "Explore tools and techniques used in project management.",
+                "subtopics": {
+                    "Gantt Charts": {
+                        "description": "Visual representation of project schedules."
+                    },
+                    "Kanban Boards": {
+                        "description": "A visual tool to manage workflow."
+                    }
+                }
+            }
+        }
+    },
+    "Digital Marketing": {
+        "description": "Digital marketing involves promoting products or services through digital channels.",
+        "subtopics": {
+            "SEO": {
+                "description": "Learn about optimizing websites to rank higher in search engines.",
+                "subtopics": {
+                    "On-Page SEO": {
+                        "description": "Optimizing individual pages for search engines."
+                    },
+                    "Off-Page SEO": {
+                        "description": "Techniques to improve website authority and rankings."
+                    }
+                }
+            },
+            "Social Media Marketing": {
+                "description": "Explore marketing strategies on social media platforms.",
+                "subtopics": {
+                    "Content Creation": {
+                        "description": "Creating engaging content for social media."
+                    },
+                    "Analytics": {
+                        "description": "Measuring and analyzing social media performance."
+                    }
+                }
+            }
+        }
+    },
+    "Blockchain Development": {
+        "description": "Blockchain development focuses on creating and managing blockchain applications.",
+        "subtopics": {
+            "Smart Contracts": {
+                "description": "Learn to develop self-executing contracts.",
+                "subtopics": {
+                    "Solidity": {
+                        "description": "Programming language for writing smart contracts on Ethereum."
+                    },
+                    "Testing": {
+                        "description": "Testing smart contracts for reliability."
+                    }
+                }
+            },
+            "DApps": {
+                "description": "Explore decentralized applications (DApps).",
+                "subtopics": {
+                    "Web3.js": {
+                        "description": "JavaScript library for interacting with the Ethereum blockchain."
+                    },
+                    "IPFS": {
+                        "description": "Learn about the InterPlanetary File System for decentralized storage."
+                    }
+                }
+            }
+        }
+    },
+    "Financial Literacy": {
+        "description": "Financial literacy involves understanding and effectively using various financial skills.",
+        "subtopics": {
+            "Budgeting": {
+                "description": "Learn to create and manage a personal budget.",
+                "subtopics": {
+                    "Income Tracking": {
+                        "description": "Understanding how to track income sources."
+                    },
+                    "Expense Tracking": {
+                        "description": "Learning to categorize and monitor expenses."
+                    }
+                }
+            },
+            "Investing": {
+                "description": "Explore the principles of investing.",
+                "subtopics": {
+                    "Stock Market": {
+                        "description": "Learn about investing in stocks and shares."
+                    },
+                    "Real Estate": {
+                        "description": "Understanding real estate as an investment."
+                    }
+                }
+            }
+        }
+    },
+    "Entrepreneurship": {
+        "description": "Entrepreneurship involves creating and managing new business ventures.",
+        "subtopics": {
+            "Business Planning": {
+                "description": "Learn to create a comprehensive business plan.",
+                "subtopics": {
+                    "Market Research": {
+                        "description": "Understanding how to analyze target markets."
+                    },
+                    "Financial Projections": {
+                        "description": "Creating financial forecasts for a business."
+                    }
+                }
+            },
+            "Marketing Strategies": {
+                "description": "Explore marketing techniques for new ventures.",
+                "subtopics": {
+                    "Branding": {
+                        "description": "Building a strong brand identity."
+                    },
+                    "Sales Strategies": {
+                        "description": "Techniques to effectively sell products or services."
+                    }
+                }
+            }
+        }
+    },
+    "Personal Development": {
+        "description": "Personal development focuses on self-improvement and achieving personal goals.",
+        "subtopics": {
+            "Time Management": {
+                "description": "Learn to manage time effectively.",
+                "subtopics": {
+                    "Prioritization": {
+                        "description": "Understanding how to prioritize tasks."
+                    },
+                    "Goal Setting": {
+                        "description": "Setting realistic and achievable goals."
+                    }
+                }
+            },
+            "Communication Skills": {
+                "description": "Improve interpersonal and professional communication.",
+                "subtopics": {
+                    "Public Speaking": {
+                        "description": "Learn techniques for effective public speaking."
+                    },
+                    "Active Listening": {
+                        "description": "Understanding the importance of listening in communication."
+                    }
+                }
+            }
+        }
+    },
+    "Photography": {
+        "description": "Photography involves capturing images using cameras and other devices.",
+        "subtopics": {
+            "Basics": {
+                "description": "Learn the fundamental aspects of photography.",
+                "subtopics": {
+                    "Camera Settings": {
+                        "description": "Understanding aperture, shutter speed, and ISO."
+                    },
+                    "Composition": {
+                        "description": "Learning the rules of composition in photography."
+                    }
+                }
+            },
+            "Editing": {
+                "description": "Explore techniques for editing photos.",
+                "subtopics": {
+                    "Software": {
+                        "description": "Learn about popular photo editing software."
+                    },
+                    "Techniques": {
+                        "description": "Study common editing techniques and styles."
+                    }
+                }
+            }
+        }
+    },
+    "Cooking": {
+        "description": "Cooking involves preparing food for consumption.",
+        "subtopics": {
+            "Techniques": {
+                "description": "Learn various cooking techniques.",
+                "subtopics": {
+                    "Baking": {
+                        "description": "Understanding the art of baking various goods."
+                    },
+                    "Grilling": {
+                        "description": "Techniques for grilling meats and vegetables."
+                    }
+                }
+            },
+            "Cuisines": {
+                "description": "Explore different global cuisines.",
+                "subtopics": {
+                    "Italian": {
+                        "description": "Learning about traditional Italian dishes."
+                    },
+                    "Asian": {
+                        "description": "Understanding Asian culinary traditions."
+                    }
+                }
+            }
+        }
+    },
+    "Gardening": {
+        "description": "Gardening involves cultivating plants for food, beauty, or recreation.",
+        "subtopics": {
+            "Basics": {
+                "description": "Learn the fundamental concepts of gardening.",
+                "subtopics": {
+                    "Soil Preparation": {
+                        "description": "Understanding how to prepare soil for planting."
+                    },
+                    "Plant Selection": {
+                        "description": "Choosing the right plants for your garden."
+                    }
+                }
+            },
+            "Techniques": {
+                "description": "Explore various gardening techniques.",
+                "subtopics": {
+                    "Organic Gardening": {
+                        "description": "Learn about gardening without synthetic fertilizers or pesticides."
+                    },
+                    "Hydroponics": {
+                        "description": "Understanding growing plants in nutrient solutions without soil."
+                    }
+                }
+            }
+        }
+    },
+    "Writing": {
+        "description": "Writing involves expressing ideas and thoughts through text.",
+        "subtopics": {
+            "Creative Writing": {
+                "description": "Learn the art of creative writing.",
+                "subtopics": {
+                    "Short Stories": {
+                        "description": "Writing short fiction narratives."
+                    },
+                    "Poetry": {
+                        "description": "Understanding the forms and techniques of poetry."
+                    }
+                }
+            },
+            "Technical Writing": {
+                "description": "Explore technical writing skills.",
+                "subtopics": {
+                    "Documentation": {
+                        "description": "Creating user manuals and guides."
+                    },
+                    "Reports": {
+                        "description": "Writing clear and concise reports."
+                    }
+                }
+            }
+        }
+    },
+    "Data Science": {
+        "description": "Data science involves using scientific methods to analyze and interpret data.",
+        "subtopics": {
+            "Statistics": {
+                "description": "Learn the fundamentals of statistics.",
+                "subtopics": {
+                    "Descriptive Statistics": {
+                        "description": "Understanding measures of central tendency and variability."
+                    },
+                    "Inferential Statistics": {
+                        "description": "Learn about hypothesis testing and confidence intervals."
+                    }
+                }
+            },
+            "Machine Learning": {
+                "description": "Explore concepts of machine learning.",
+                "subtopics": {
+                    "Supervised Learning": {
+                        "description": "Learn about algorithms that predict outcomes based on labeled data."
+                    },
+                    "Unsupervised Learning": {
+                        "description": "Understanding algorithms that find patterns in unlabeled data."
+                    }
+                }
+            }
+        }
+    },
+    "Artificial Intelligence": {
+        "description": "Artificial intelligence involves creating systems that can perform tasks typically requiring human intelligence.",
+        "subtopics": {
+            "Machine Learning": {
+                "description": "Learn the principles of machine learning.",
+                "subtopics": {
+                    "Supervised Learning": {
+                        "description": "Understanding algorithms that predict outcomes based on labeled data."
+                    },
+                    "Reinforcement Learning": {
+                        "description": "Learning through trial and error to maximize reward."
+                    }
+                }
+            },
+            "Natural Language Processing": {
+                "description": "Explore the field of natural language processing.",
+                "subtopics": {
+                    "Text Processing": {
+                        "description": "Learn techniques for processing and analyzing text data."
+                    },
+                    "Sentiment Analysis": {
+                        "description": "Understanding methods for analyzing sentiments in text."
+                    }
+                }
+            }
+        }
+    },
+    "Cybersecurity": {
+        "description": "Cybersecurity involves protecting systems, networks, and programs from digital attacks.",
+        "subtopics": {
+            "Fundamentals": {
+                "description": "Learn the basics of cybersecurity.",
+                "subtopics": {
+                    "Threats": {
+                        "description": "Understanding different types of cybersecurity threats."
+                    },
+                    "Prevention": {
+                        "description": "Learn about preventive measures against cyber attacks."
+                    }
+                }
+            },
+            "Tools": {
+                "description": "Explore common cybersecurity tools.",
+                "subtopics": {
+                    "Firewalls": {
+                        "description": "Understanding how firewalls protect networks."
+                    },
+                    "Antivirus Software": {
+                        "description": "Learn about tools for detecting and removing malware."
+                    }
+                }
+            }
+        }
     }
 }

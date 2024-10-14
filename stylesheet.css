@@ -1,0 +1,196 @@
+body {
+    background-color: #000;
+    /* Set background to black */
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    /* Hide overflow for a cleaner look */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* Full viewport height */
+}
+
+.meteor {
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0));
+    animation: fall 1s linear infinite;
+    bottom: 100%;
+    opacity: 0.5;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh);
+        /* Fall to the bottom */
+        opacity: 0;
+    }
+}
+
+.node circle {
+    fill: #3b82f6;
+    /* Node circle color */
+    stroke: #fff;
+    /* Stroke color */
+    stroke-width: 2px;
+    /* Reduced stroke width */
+}
+
+.node text {
+    font: 12px sans-serif;
+    /* Adjusted font size */
+    fill: #fff;
+    /* White text for better visibility */
+    text-overflow: ellipsis;
+    /* Ellipsis if text overflows */
+    white-space: nowrap;
+    /* Prevent line breaks */
+    overflow: hidden;
+    /* Hide overflow text */
+    dy: 0.35em;
+    /* Adjust vertical positioning of text */
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    /* Link color */
+    stroke-width: 1.5px;
+    /* Reduced stroke width */
+}
+
+/* Fixed layout for header and search input */
+.fixed-layout {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 20px;
+    /* Spacing below the header */
+}
+
+/* Transparent overlay */
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
+    z-index: 0;
+}
+
+#tree {
+    position: relative;
+    /* Position for tree */
+    z-index: 10;
+    /* Ensure tree is above overlay */
+    overflow: auto;
+    /* Allow scrolling */
+    max-height: 80vh;
+    /* Set a max height for the tree */
+    border: 1px solid #ccc;
+    /* Border for visibility */
+    border-radius: 8px;
+    /* Rounded corners */
+    width: 100%;
+    /* Full width for tree */
+    margin: auto;
+    /* Center the tree */
+}
+
+#downloadButton {
+    pointer-events: auto;
+    /* Allow pointer events */
+}
+
+
+/* Tooltip style */
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    /* Increased tooltip width */
+    padding: 8px;
+    font: 12px sans-serif;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    /* Initially hidden */
+    transition: opacity 0.3s;
+    z-index: 1000;
+    /* Ensure tooltip is above other elements */
+}
+
+/* Adjusting input and button styles for better responsiveness */
+input[type="text"] {
+    flex: 1;
+    /* Make input take full width */
+    margin-right: 8px;
+    /* Space between input and button */
+}
+
+button {
+    flex: 0 0 auto;
+    /* Keep button size fixed */
+    width: auto;
+    /* Let button width be determined by content */
+}
+
+/* Footer links styling */
+.footer-links {
+    position: absolute;
+    left: 20px;
+    /* Distance from left */
+    bottom: 5px;
+    /* Distance from bottom */
+    color: #fff;
+    /* White text for better visibility */
+    font-size: 12px;
+    /* Smaller font size */
+}
+
+.footer-links a {
+    color: #3b82f6;
+    /* Blue links */
+    margin-right: 10px;
+    /* Space between links */
+}
+
+@media (max-width: 600px) {
+    .node text {
+        font: 10px sans-serif;
+        /* Smaller font for mobile */
+    }
+
+    .node circle {
+        r: 6;
+        /* Smaller circle radius for mobile */
+    }
+
+    #searchInput {
+        width: 100%;
+        /* Full width input on mobile */
+        margin-bottom: 1rem;
+        /* Space below input */
+    }
+
+    h1 {
+        font-size: 2rem;
+        /* Smaller heading on mobile */
+    }
+
+    p {
+        font-size: 1rem;
+        /* Smaller paragraph on mobile */
+    }
+}

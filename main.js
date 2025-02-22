@@ -161,7 +161,10 @@ function createCollapsibleTree(data, query) {
 document.getElementById("downloadButton").addEventListener("click", function () {
     const treeElement = document.getElementById("tree");
 
-    html2canvas(treeElement, { scale: 2 }).then(canvas => {
+    html2canvas(treeElement, { 
+        scale: 2,
+        backgroundColor: "#111"  // ✅ Forces dark background (Adjust if needed)
+    }).then(canvas => {
         const image = canvas.toDataURL("image/png"); // Convert canvas to PNG format
         const link = document.createElement("a");
         link.href = image;
@@ -169,3 +172,23 @@ document.getElementById("downloadButton").addEventListener("click", function () 
         link.click(); // Auto-download the file
     });
 });
+
+
+function createMeteor() {
+    const meteor = document.createElement("div");
+    meteor.classList.add("meteor");
+
+    // Random starting position
+    meteor.style.left = Math.random() * window.innerWidth + "px";
+    meteor.style.animationDuration = (Math.random() * 1.5 + 0.5) + "s"; // Random fall speed
+
+    document.body.appendChild(meteor);
+
+    // Remove meteor after animation
+    setTimeout(() => {
+        meteor.remove();
+    }, 2000);
+}
+
+// Create meteors at intervals
+setInterval(createMeteor, 200);

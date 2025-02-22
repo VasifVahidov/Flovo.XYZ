@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="tree-icon.png" type="image/png"> <!-- Favicon -->
-    <title>Flovo - Tree Structure Visualization</title>
+    <title>Flovo AI - Tree Structure Visualization</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
@@ -17,8 +17,10 @@
     <div id="overlay"></div> <!-- Transparent overlay -->
 
     <div class="fixed-layout">
-        <h1 class="text-4xl font-bold text-gray-800 text-center mb-4">Flovo.XYZ</h1>
-        <p class="text-lg text-gray-600 text-center mb-4">Seamless Flow, Clear Outcomes</p>
+        <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent text-center mb-4 drop-shadow-lg">
+            Flovo AI
+        </h1>
+                <p class="text-lg text-gray-600 text-center mb-4">Seamless Flow, Clear Outcomes</p>
 
         <form id="searchForm" class="flex flex-col md:flex-row justify-center">
             <input type="text" id="searchInput" placeholder="Enter your query..."
@@ -32,15 +34,25 @@
     <div id="result" class="mt-8 text-center hidden">
         <h2 class="text-2xl font-semibold text-white">Results:</h2>
         <div id="tree" class="mt-4"></div>
-        <button id="downloadButton" class="mt-4 bg-green-500 text-white rounded-lg px-4 py-2">Download Tree as Image</button>
+<!-- Floating Download Button (Now Correctly Positioned) -->
+<div class="fixed bottom-8 right-8 group cursor-pointer">
+    <!-- Circular Download Button -->
+    <div id="downloadButton" class="p-4 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full shadow-lg hover:from-blue-600 hover:to-purple-600 transition duration-300 w-14 h-14 flex items-center justify-center" onclick="downloadTreeAsImage()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M5 20h14v-2H5v2zm7-18L5.33 10h3.34v4h4.66v-4h3.34L12 2z"/>
+        </svg>
+    </div>
+</div>
     </div>
 
     <div class="tooltip" id="tooltip"></div> <!-- Tooltip element -->
 
-    <div class="footer-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="about.html">About</a>
-    </div>
+    <footer class="footer-links text-center mt-6">
+        <a href="privacy-policy.html" class="text-blue-400 hover:text-blue-500">Privacy Policy</a>
+        <a href="about.html" class="text-blue-400 hover:text-blue-500">About</a>
+        <a href="https://github.com/VasifVahidov/Flovo.XYZ" class="text-blue-400 hover:text-blue-500">Documentation</a>
+
+    </footer>    
 
     <script src="main.js"></script>
 

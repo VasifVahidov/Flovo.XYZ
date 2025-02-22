@@ -1,196 +1,232 @@
+/* 🌙 Global Styles */
 body {
-    background-color: #000;
-    /* Set background to black */
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    /* Hide overflow for a cleaner look */
+    background-color: #111; /* Dark mode */
+    font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    /* Full viewport height */
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    padding: 20px;
 }
 
-.meteor {
-    position: absolute;
-    width: 2px;
-    height: 10px;
-    background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0));
-    animation: fall 1s linear infinite;
-    bottom: 100%;
-    opacity: 0.5;
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(100vh);
-        /* Fall to the bottom */
-        opacity: 0;
-    }
-}
-
-.node circle {
-    fill: #3b82f6;
-    /* Node circle color */
-    stroke: #fff;
-    /* Stroke color */
-    stroke-width: 2px;
-    /* Reduced stroke width */
-}
-
-.node text {
-    font: 12px sans-serif;
-    /* Adjusted font size */
-    fill: #fff;
-    /* White text for better visibility */
-    text-overflow: ellipsis;
-    /* Ellipsis if text overflows */
-    white-space: nowrap;
-    /* Prevent line breaks */
-    overflow: hidden;
-    /* Hide overflow text */
-    dy: 0.35em;
-    /* Adjust vertical positioning of text */
-}
-
-.link {
-    fill: none;
-    stroke: #ccc;
-    /* Link color */
-    stroke-width: 1.5px;
-    /* Reduced stroke width */
-}
-
-/* Fixed layout for header and search input */
+/* 🌟 Header & Search Section */
 .fixed-layout {
     position: relative;
     z-index: 10;
-    margin-bottom: 20px;
-    /* Spacing below the header */
-}
-
-/* Transparent overlay */
-#overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black */
-    z-index: 0;
-}
-
-#tree {
-    position: relative;
-    /* Position for tree */
-    z-index: 10;
-    /* Ensure tree is above overlay */
-    overflow: auto;
-    /* Allow scrolling */
-    max-height: 80vh;
-    /* Set a max height for the tree */
-    border: 1px solid #ccc;
-    /* Border for visibility */
-    border-radius: 8px;
-    /* Rounded corners */
-    width: 100%;
-    /* Full width for tree */
-    margin: auto;
-    /* Center the tree */
-}
-
-#downloadButton {
-    pointer-events: auto;
-    /* Allow pointer events */
-}
-
-
-/* Tooltip style */
-.tooltip {
-    position: absolute;
     text-align: center;
-    width: 200px;
-    /* Increased tooltip width */
-    padding: 8px;
-    font: 12px sans-serif;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    border-radius: 4px;
-    pointer-events: none;
-    opacity: 0;
-    /* Initially hidden */
-    transition: opacity 0.3s;
-    z-index: 1000;
-    /* Ensure tooltip is above other elements */
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 15px;
 }
 
-/* Adjusting input and button styles for better responsiveness */
-input[type="text"] {
+/* 🔎 Search Bar */
+#searchForm {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Ensures both elements stretch evenly */
+    width: 100%;
+    max-width: 450px; /* Increased for better balance */
+    margin: 0 auto; /* Centers it horizontally */
+    flex-wrap: nowrap; /* Prevents breaking onto a new line */
+
+}
+
+/* 🎯 Input Field */
+#searchInput {
     flex: 1;
-    /* Make input take full width */
-    margin-right: 8px;
-    /* Space between input and button */
-}
-
-button {
-    flex: 0 0 auto;
-    /* Keep button size fixed */
-    width: auto;
-    /* Let button width be determined by content */
-}
-
-/* Footer links styling */
-.footer-links {
-    position: absolute;
-    left: 20px;
-    /* Distance from left */
-    bottom: 5px;
-    /* Distance from bottom */
+    height: 44px; /* Exact height */
+    padding: 0 12px;
+    border: 1px solid #444;
+    border-radius: 8px 0 0 8px;
+    background-color: #222;
     color: #fff;
-    /* White text for better visibility */
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    line-height: normal;
+    text-align: left;
+}
+
+/* 🔘 Search Button */
+#searchForm button {
+    height: 44px; /* Matches input */
+    padding: 0 16px;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🔄 Hover Effect */
+#searchForm button:hover {
+    background-color: #6b5cf6;
+}
+
+/* 📌 Fully Centered UI */
+#searchForm,
+#tree,
+#downloadButton {
+    margin: 0 auto; /* Ensures everything stays perfectly centered */
+}
+
+
+/* 🌳 Tree Visualization */
+#tree {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 20px;
+}
+
+/* 🌲 Tree SVG */
+#tree svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 900px;
+    max-width: none;
+    overflow: visible;
+}
+
+/* 🟣 Node Styles */
+.node text {
+    font-size: 14px;
+    fill: #ffffff;
+}
+
+.node circle {
+    r: 10;
+    fill: #4f46e5;
+    cursor: pointer;
+    transition: fill 0.3s ease;
+}
+
+.node circle:hover {
+    fill: #6b5cf6;
+}
+
+/* 🌿 Links (Tree Lines) */
+.link {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2px;
+}
+
+/* 📥 Download Button */
+#downloadButton {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #22c55e;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#downloadButton:hover {
+    background-color: #16a34a;
+}
+
+/* 📌 Footer Links */
+.footer-links {
+    position: relative;
+    margin-top: 20px;
     font-size: 12px;
-    /* Smaller font size */
+    color: #bbb;
 }
 
 .footer-links a {
     color: #3b82f6;
-    /* Blue links */
     margin-right: 10px;
-    /* Space between links */
 }
 
+/* 📱 Mobile Optimizations */
 @media (max-width: 600px) {
+    #tree {
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+
+    #tree svg {
+        min-width: 800px;
+        transform: none;
+    }
+
     .node text {
-        font: 10px sans-serif;
-        /* Smaller font for mobile */
+        font-size: 12px;
     }
 
     .node circle {
-        r: 6;
-        /* Smaller circle radius for mobile */
+        r: 8;
     }
 
-    #searchInput {
+    #searchForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        /* Full width input on mobile */
-        margin-bottom: 1rem;
-        /* Space below input */
+        max-width: 90%;
+        margin: 0 auto;
+        flex-wrap: nowrap; /* Prevents breaking to a new line */
     }
 
-    h1 {
-        font-size: 2rem;
-        /* Smaller heading on mobile */
+    /* 🎯 Fix Input Field */
+    #searchInput {
+        flex: 1;
+        height: 44px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #444;
+        background-color: #222;
+        color: #fff;
+        outline: none;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        min-width: 0; /* Prevents unnecessary width issues */
+        width: 70%; /* Ensures proper scaling */
     }
 
-    p {
+    /* 🔘 Fix Search Button */
+    #searchForm button {
+        height: 44px;
+        padding: 0 16px;
+        border: none;
+        border-radius: 8px;
+        background-color: #4f46e5;
+        color: white;
         font-size: 1rem;
-        /* Smaller paragraph on mobile */
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap; /* Prevents text from wrapping */
+        min-width: auto; /* Ensures button stays with input */
+        width: 30%; /* Fixes layout shifting */
     }
 }

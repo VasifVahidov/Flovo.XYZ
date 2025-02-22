@@ -42,29 +42,35 @@ function convertToTree(data, name) {
     return node;
 }
 
-// **Create collapsible tree (Fixed)**
 function createCollapsibleTree(data, query) {
     d3.select("#tree").selectAll("*").remove();
 
     const treeData = convertToTree(data, query);
-    console.log("Converted Tree Structure:", JSON.stringify(treeData, null, 2)); // Debugging log
-    const width = 1000, height = 600;
+    console.log("Converted Tree Structure:", JSON.stringify(treeData, null, 2));
+
+    // 📏 Dynamically adjust width & height for a compact layout
+    const width = Math.min(window.innerWidth - 40, 900);
+    const height = Math.min(window.innerHeight - 100, 500);
 
     const svg = d3.select("#tree")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .style("display", "block") // Make sure it's centered
-        .style("margin", "auto") // Center horizontally
+        .style("display", "block")
+        .style("margin", "auto")
+        .call(d3.zoom().on("zoom", (event) => {
+            svg.attr("transform", event.transform);
+        }))
         .append("g")
-        .attr("transform", `translate(${width / 4}, 50)`);
+        .attr("transform", `translate(${width / 3}, 50)`); // ⚡ Tighter centering
 
-    const treeLayout = d3.tree().size([height - 100, width - 300]);
+    // 📏 Tighter tree layout
+    const treeLayout = d3.tree().size([height - 100, width - 400]); 
     const root = d3.hierarchy(treeData, d => d.children);
     root.x0 = height / 2;
     root.y0 = 0;
 
-    // **Collapse all nodes except first level**
+    // 🚀 Collapse all nodes except first level
     if (root.children) {
         root.children.forEach(collapse);
     }
@@ -84,7 +90,7 @@ function createCollapsibleTree(data, query) {
         const links = root.links();
 
         treeLayout(root);
-        nodes.forEach(d => d.y = d.depth * 180);
+        nodes.forEach(d => d.y = d.depth * 90); // ⚡ Tighter spacing: 90px instead of 120px
 
         const node = svg.selectAll("g.node")
             .data(nodes, d => d.id || (d.id = Math.random()));
@@ -99,15 +105,17 @@ function createCollapsibleTree(data, query) {
             });
 
         nodeEnter.append("circle")
-            .attr("r", 10)
+            .attr("r", 7) // 🔵 Slightly smaller nodes for compactness
             .style("fill", d => d._children ? "#4f46e5" : "#999")
             .style("cursor", "pointer");
 
         nodeEnter.append("text")
             .attr("dy", 3)
-            .attr("x", d => d.children || d._children ? -15 : 15)
+            .attr("x", d => d.children || d._children ? -12 : 12)
             .attr("text-anchor", d => d.children || d._children ? "end" : "start")
-            .text(d => d.data.name);
+            .text(d => d.data.name)
+            .style("fill", "#ffffff")
+            .style("font-size", "11px"); // ⚡ Slightly smaller text
 
         const nodeUpdate = nodeEnter.merge(node);
         nodeUpdate.transition().duration(duration)
@@ -124,19 +132,19 @@ function createCollapsibleTree(data, query) {
             .insert("path", "g")
             .attr("class", "link")
             .attr("fill", "none")
-            .attr("stroke", "#999")
-            .attr("stroke-width", "2px")
-            .attr("d", d3.linkHorizontal()
+            .attr("stroke", "#888")
+            .attr("stroke-width", "1px") // ⚡ Thinner lines for less visual clutter
+            .attr("d", d3.linkVertical() // ✅ Use vertical lines for a cleaner look
                 .x(d => d.y)
                 .y(d => d.x))
             .merge(link)
             .transition().duration(duration)
-            .attr("d", d3.linkHorizontal()
+            .attr("d", d3.linkVertical()
                 .x(d => d.y)
                 .y(d => d.x));
 
         link.exit().transition().duration(duration)
-            .attr("d", d3.linkHorizontal()
+            .attr("d", d3.linkVertical()
                 .x(d => source.y)
                 .y(d => source.x))
             .remove();
@@ -157,6 +165,7 @@ function createCollapsibleTree(data, query) {
         }
     }
 }
+
 
 document.getElementById("downloadButton").addEventListener("click", function () {
     const treeElement = document.getElementById("tree");

@@ -163,16 +163,24 @@ document.getElementById("downloadButton").addEventListener("click", function () 
 
     html2canvas(treeElement, { 
         scale: 2,
-        backgroundColor: "#111"  // ✅ Forces dark background (Adjust if needed)
+        backgroundColor: "#111"  // ✅ Force dark background for visibility
     }).then(canvas => {
-        const image = canvas.toDataURL("image/png"); // Convert canvas to PNG format
-        const link = document.createElement("a");
-        link.href = image;
-        link.download = "flovo_tree.png"; // Set the file name
-        link.click(); // Auto-download the file
+        const image = canvas.toDataURL("image/png");
+
+        // ✅ Special fix for Safari
+        if (navigator.userAgent.includes("Safari") && !navigator.userAgent.includes("Chrome")) {
+            const newWindow = window.open();
+            newWindow.document.write('<img src="' + image + '"/>');
+        } else {
+            const link = document.createElement("a");
+            link.href = image;
+            link.download = "flovo_tree.png";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     });
 });
-
 
 function createMeteor() {
     const meteor = document.createElement("div");

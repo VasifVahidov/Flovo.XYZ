@@ -21,6 +21,7 @@ body {
     width: 100%;
     max-width: 600px;
     margin-bottom: 15px;
+    margin-top: 5px;
 }
 
 /* 🔎 Search Bar */
@@ -147,18 +148,36 @@ body {
     background-color: #16a34a;
 }
 
-/* 📌 Footer Links */
+/* 📌 Footer - Stick to Bottom Left */
 .footer-links {
-    position: relative;
-    margin-top: 20px;
+    position: fixed;  /* Ensures it's always visible */
+    bottom: 10px;     /* Sticks to the bottom */
+    left: 10px;       /* Aligns to the left */
     font-size: 12px;
     color: #bbb;
+    text-align: left;
+    z-index: 1000;    /* Ensures it stays on top */
 }
 
 .footer-links a {
     color: #3b82f6;
     margin-right: 10px;
+    text-decoration: none;
 }
+
+.footer-links a:hover {
+    color: #6b8ef6;
+}
+
+/* ✅ New "All Rights Reserved" Text */
+.footer-links::after {
+    content: "© 2025 Flovo AI. All rights reserved.";
+    flex-grow: 1;  /* Pushes it to center */
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+}
+
 
 /* 📱 Mobile Optimizations */
 @media (max-width: 600px) {
@@ -229,6 +248,10 @@ body {
         min-width: auto; /* Ensures button stays with input */
         width: 30%; /* Fixes layout shifting */
     }
+
+    .fixed-layout {
+        margin-top: 105px;
+    }
 }
 
 /* 🌠 Meteor Shower Effect */
@@ -252,4 +275,14 @@ body {
         transform: translateY(100vh);
         opacity: 0;
     }
+}
+
+/* Smooth fade-in animation */
+#historyModal {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }

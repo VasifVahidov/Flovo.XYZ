@@ -209,3 +209,41 @@ function createMeteor() {
 
 // Create meteors at intervals
 setInterval(createMeteor, 200);
+
+// Store search history in local storage
+let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+document.getElementById("searchForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const query = document.getElementById("searchInput").value.trim();
+    
+    if (query && !searchHistory.includes(query)) {
+        searchHistory.unshift(query);
+        if (searchHistory.length > 10) searchHistory.pop(); // Limit to last 10 searches
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    }
+});
+
+// Show history modal
+document.getElementById("historyButton").addEventListener("click", function() {
+    const historyList = document.getElementById("historyList");
+    historyList.innerHTML = ""; // Clear previous items
+
+    searchHistory.forEach(search => {
+        const item = document.createElement("li");
+        item.className = "cursor-pointer hover:text-blue-400";
+        item.innerText = search;
+        item.onclick = function() {
+            document.getElementById("searchInput").value = search;
+            document.getElementById("historyModal").classList.add("hidden");
+        };
+        historyList.appendChild(item);
+    });
+
+    document.getElementById("historyModal").classList.remove("hidden");
+});
+
+// Close history modal
+document.getElementById("closeHistory").addEventListener("click", function() {
+    document.getElementById("historyModal").classList.add("hidden");
+});

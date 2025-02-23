@@ -286,10 +286,13 @@ body {
         width: 90%;
         padding: 10px;
         font-size: 0.9rem; /* Smaller text */
+        z-index: 10000;    /* Ensures it stays on top */
     }
 
     #closeHistory {
         font-size: 0.9rem;
+        z-index: 10000;    /* Ensures it stays on top */
+
     }
 }
 

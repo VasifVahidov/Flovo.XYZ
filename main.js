@@ -176,9 +176,11 @@ function createRadialTree(data, query) {
     d3.select("#tree").selectAll("*").remove(); // Clear previous tree
 
     const treeData = convertToTree(data, query);
-    console.log("Converted Tree Structure:", JSON.stringify(treeData, null, 2)); // Debugging log
+    console.log("Converted Tree Structure:", JSON.stringify(treeData, null, 2));
 
-    const width = 800, height = 800; // Set the dimensions
+    const width = 800,
+        height = 800,
+        radius = width / 2 - 50;
 
     const svg = d3.select("#tree")
         .append("svg")
@@ -187,11 +189,14 @@ function createRadialTree(data, query) {
         .append("g")
         .attr("transform", `translate(${width / 2},${height / 2})`);
 
-    const cluster = d3.cluster().size([360, width / 3]);
+    // ✅ Use `d3.cluster()` for a better radial structure
+    const cluster = d3.cluster()
+        .size([360, radius]);
 
     const root = d3.hierarchy(treeData, d => d.children);
     cluster(root);
 
+    // ✅ Draw links (curved paths)
     const link = svg.selectAll("path")
         .data(root.links())
         .enter().append("path")
@@ -199,9 +204,10 @@ function createRadialTree(data, query) {
             .angle(d => (d.x / 180) * Math.PI)
             .radius(d => d.y))
         .attr("fill", "none")
-        .attr("stroke", "#999")
+        .attr("stroke", "#00ffcc") // Neon blue-green circuit look
         .attr("stroke-width", "2px");
 
+    // ✅ Draw nodes (circles)
     const node = svg.selectAll("g.node")
         .data(root.descendants())
         .enter().append("g")
@@ -213,18 +219,32 @@ function createRadialTree(data, query) {
         });
 
     node.append("circle")
-        .attr("r", 8)
+        .attr("r", 8) // Adjusted node size
         .style("fill", d => d.children ? "#4f46e5" : "#999")
         .style("cursor", "pointer");
 
+    // ✅ Fix text positioning to avoid overlap
     node.append("text")
         .attr("dy", 3)
         .attr("x", d => d.x < 180 ? 12 : -12)
         .attr("text-anchor", d => d.x < 180 ? "start" : "end")
         .attr("transform", d => d.x < 180 ? "" : "rotate(180)")
         .text(d => d.data.name)
-        .style("fill", "#ffffff");
+        .style("fill", "#ffffff")
+        .style("font-size", "12px");
 }
+
+// ✅ Collapsing Functionality
+function toggleChildren(d) {
+    if (d.children) {
+        d._children = d.children;
+        d.children = null;
+    } else {
+        d.children = d._children;
+        d._children = null;
+    }
+}
+
 
 
 

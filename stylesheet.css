@@ -343,3 +343,19 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
+#historyModal {
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    background: rgba(20, 20, 20, 0.95);
+    padding: 15px;
+    z-index: 9999; /* ✅ Ensure it’s above everything */
+}
+
+@media (max-width: 600px) {
+    #historyModal {
+        top: 20%; /* ✅ Move it slightly lower */
+        left: 50%;
+        transform: translate(-50%, -20%);
+    }
+}

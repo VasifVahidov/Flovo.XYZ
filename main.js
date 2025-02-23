@@ -9,10 +9,18 @@ fetch('data.json')
     })
     .catch(error => console.error('Error fetching JSON:', error));
 
-    document.getElementById('searchForm').addEventListener('submit', function (event) {
+    document.getElementById('searchForm').addEventListener('submit', async function (event) {
         event.preventDefault();
         const query = document.getElementById('searchInput').value.trim();
+    
         let result = jsonData[query] || fuzzySearch(query, jsonData);
+    
+        if (!result) {
+            result = await fetchWikipediaData(query); // Fetch from Wikipedia
+            if (result) {
+                result.children = await fetchWikidataSubtopics(query); // Fetch subtopics from Wikidata
+            }
+        }
     
         if (result) {
             document.getElementById('result').classList.remove('hidden');
@@ -27,6 +35,7 @@ fetch('data.json')
         }
     });
     
+    
 
 // **Fuzzy search function**
 function fuzzySearch(query, data) {
@@ -40,13 +49,16 @@ function fuzzySearch(query, data) {
 
 // **Updated JSON-to-Tree Conversion**
 function convertToTree(data, name) {
-    let node = {
+    let parsedSubtopics = data.children || parseDescriptionToSubtopics(data.description);
+
+    return {
         name: name,
         description: data.description,
-        children: data.subtopics ? Object.entries(data.subtopics).map(([key, value]) => convertToTree(value, key)) : null
+        children: parsedSubtopics ? parsedSubtopics.map(subtopic => convertToTree(subtopic, subtopic.name)) : []
     };
-    return node;
 }
+
+
 
 function createCollapsibleTree(data, query) {
     d3.select("#tree").selectAll("*").remove();
@@ -162,6 +174,8 @@ function createCollapsibleTree(data, query) {
     }
 
     function toggleChildren(d) {
+        if (!d.children && !d._children) return; // ✅ Prevent toggling on empty nodes
+    
         if (d.children) {
             d._children = d.children;
             d.children = null;
@@ -170,6 +184,8 @@ function createCollapsibleTree(data, query) {
             d._children = null;
         }
     }
+    
+    
 }
 
 function createRadialTree(data, query) {
@@ -343,3 +359,72 @@ document.getElementById('toggleTreeView').addEventListener('change', function ()
         }
     }
 });
+
+async function fetchWikipediaData(topic) {
+    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(topic)}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch data");
+
+        const data = await response.json();
+        if (!data.extract) return null; // No relevant data found
+
+        return {
+            name: topic,
+            description: data.extract,
+            children: [] // Placeholder for subtopics
+        };
+    } catch (error) {
+        console.error("Error fetching Wikipedia data:", error);
+        return null;
+    }
+}
+
+async function fetchWikidataSubtopics(topic) {
+    const wikidataQuery = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(topic)}&language=en&format=json&origin=*`;
+
+    try {
+        const response = await fetch(wikidataQuery);
+        if (!response.ok) throw new Error("Failed to fetch Wikidata");
+
+        const data = await response.json();
+        if (!data.search || data.search.length === 0) return [];
+
+        return data.search.map(entry => ({
+            name: entry.label,
+            description: entry.description || "No description available.",
+            children: [] // Can be expanded later
+        }));
+    } catch (error) {
+        console.error("Error fetching Wikidata subtopics:", error);
+        return [];
+    }
+}
+
+function parseDescriptionToSubtopics(description) {
+    const subtopics = [];
+    const sentences = description.split(/[\.\!]/).map(s => s.trim());
+
+    let index = 1;
+    for (const sentence of sentences) {
+        for (const [category, keywords] of Object.entries(categories)) {
+            if (keywords.some(keyword => sentence.toLowerCase().includes(keyword))) {
+                const matchedKeyword = keywords.find(keyword => sentence.toLowerCase().includes(keyword));
+                const extractedInfo = sentence.split(matchedKeyword)[1]?.trim();
+                
+                if (extractedInfo) {
+                    subtopics.push({
+                        name: `${category}: ${extractedInfo}`,  // ✅ Give each node a meaningful name
+                        description: extractedInfo,
+                        children: []
+                    });
+                    index++;
+                }
+            }
+        }
+    }
+
+    return subtopics.length > 0 ? subtopics : null;  // ✅ Ensure a valid structure
+}
+

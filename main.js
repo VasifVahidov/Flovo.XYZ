@@ -9,18 +9,24 @@ fetch('data.json')
     })
     .catch(error => console.error('Error fetching JSON:', error));
 
-document.getElementById('searchForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const query = document.getElementById('searchInput').value.trim();
-    let result = jsonData[query] || fuzzySearch(query, jsonData);
-
-    if (result) {
-        document.getElementById('result').classList.remove('hidden');
-        createCollapsibleTree(result, query);
-    } else {
-        document.getElementById('result').innerHTML = `<p class="text-red-500">No results found for: <strong>${query}</strong></p>`;
-    }
-});
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const query = document.getElementById('searchInput').value.trim();
+        let result = jsonData[query] || fuzzySearch(query, jsonData);
+    
+        if (result) {
+            document.getElementById('result').classList.remove('hidden');
+    
+            if (document.getElementById('toggleTreeView').checked) {
+                createRadialTree(result, query); // 🌟 Circuit View
+            } else {
+                createCollapsibleTree(result, query); // 🔄 Standard View
+            }
+        } else {
+            document.getElementById('result').innerHTML = `<p class="text-red-500">No results found for: <strong>${query}</strong></p>`;
+        }
+    });
+    
 
 // **Fuzzy search function**
 function fuzzySearch(query, data) {
@@ -166,6 +172,61 @@ function createCollapsibleTree(data, query) {
     }
 }
 
+function createRadialTree(data, query) {
+    d3.select("#tree").selectAll("*").remove(); // Clear previous tree
+
+    const treeData = convertToTree(data, query);
+    console.log("Converted Tree Structure:", JSON.stringify(treeData, null, 2)); // Debugging log
+
+    const width = 800, height = 800; // Set the dimensions
+
+    const svg = d3.select("#tree")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2},${height / 2})`);
+
+    const cluster = d3.cluster().size([360, width / 3]);
+
+    const root = d3.hierarchy(treeData, d => d.children);
+    cluster(root);
+
+    const link = svg.selectAll("path")
+        .data(root.links())
+        .enter().append("path")
+        .attr("d", d3.linkRadial()
+            .angle(d => (d.x / 180) * Math.PI)
+            .radius(d => d.y))
+        .attr("fill", "none")
+        .attr("stroke", "#999")
+        .attr("stroke-width", "2px");
+
+    const node = svg.selectAll("g.node")
+        .data(root.descendants())
+        .enter().append("g")
+        .attr("class", "node")
+        .attr("transform", d => `rotate(${d.x - 90}) translate(${d.y},0)`)
+        .on("click", function (event, d) {
+            toggleChildren(d);
+            createRadialTree(data, query); // Update tree on click
+        });
+
+    node.append("circle")
+        .attr("r", 8)
+        .style("fill", d => d.children ? "#4f46e5" : "#999")
+        .style("cursor", "pointer");
+
+    node.append("text")
+        .attr("dy", 3)
+        .attr("x", d => d.x < 180 ? 12 : -12)
+        .attr("text-anchor", d => d.x < 180 ? "start" : "end")
+        .attr("transform", d => d.x < 180 ? "" : "rotate(180)")
+        .text(d => d.data.name)
+        .style("fill", "#ffffff");
+}
+
+
 
 document.getElementById("downloadButton").addEventListener("click", function () {
     const treeElement = document.getElementById("tree");
@@ -241,9 +302,24 @@ document.getElementById("historyButton").addEventListener("click", function() {
     });
 
     document.getElementById("historyModal").classList.remove("hidden");
+    popup.style.zIndex = "1000"; // ✅ Ensure it comes to the front
+
 });
 
 // Close history modal
 document.getElementById("closeHistory").addEventListener("click", function() {
     document.getElementById("historyModal").classList.add("hidden");
+});
+
+document.getElementById('toggleTreeView').addEventListener('change', function () {
+    const query = document.getElementById('searchInput').value.trim();
+    let result = jsonData[query] || fuzzySearch(query, jsonData);
+
+    if (result) {
+        if (this.checked) {
+            createRadialTree(result, query); // 🌟 Circuit View
+        } else {
+            createCollapsibleTree(result, query); // 🔄 Standard View
+        }
+    }
 });
